@@ -5,8 +5,9 @@ This is a simple static website that is hosted using GitHub Pages. It demonstrat
 ## Features
 
 - Responsive design
-- Multiple pages (Home, About, Contact)
-- CSS animations
+- Multiple pages (Home, Physics Demo, Contact)
+- Interactive physics simulation with a draggable bouncing ball
+- CSS animations and canvas graphics
 - Functional contact form that sends emails to cordwell@gmail.com and CCs austen@gauntletai.com
 - Prominent display of the website URL with copy-to-clipboard functionality
 - Animated elements for better user engagement
@@ -14,7 +15,7 @@ This is a simple static website that is hosted using GitHub Pages. It demonstrat
 ## Pages
 
 - **Home**: The landing page with a welcome message and prominent URL display
-- **About**: Information about the website and technologies used
+- **Physics Demo**: An interactive canvas-based physics simulation with a draggable purple ball
 - **Contact**: A functional contact form that sends messages to cordwell@gmail.com and CCs austen@gauntletai.com
 
 ## Technologies Used
@@ -22,6 +23,7 @@ This is a simple static website that is hosted using GitHub Pages. It demonstrat
 - HTML5
 - CSS3
 - Vanilla JavaScript
+- HTML5 Canvas for physics simulations
 - GitHub Pages for hosting
 - Formspree for form processing
 

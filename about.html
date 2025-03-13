@@ -3,12 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - My GitHub Pages Website</title>
+    <title>Physics Demo - My GitHub Pages Website</title>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .canvas-container {
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        canvas {
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            display: block;
+            touch-action: none; /* Prevents default touch actions on the canvas */
+        }
+        
+        .instructions {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e6f7ff;
+            border-radius: 5px;
+            border-left: 4px solid #0077cc;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>About This Website</h1>
+        <h1>Physics Playground</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -20,19 +44,14 @@
 
     <main>
         <section>
-            <h2>About Us</h2>
-            <p>This is a simple demonstration website hosted on GitHub Pages. It was created to showcase how easy it is to build and deploy a website using GitHub Pages.</p>
-            <p>GitHub Pages is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, optionally runs the files through a build process, and publishes a website.</p>
-        </section>
-        
-        <section>
-            <h2>Technologies Used</h2>
-            <ul>
-                <li>HTML5</li>
-                <li>CSS3</li>
-                <li>JavaScript</li>
-                <li>GitHub Pages for hosting</li>
-            </ul>
+            <h2>Interactive Physics Demo</h2>
+            <div class="instructions">
+                <p><strong>Instructions:</strong> Click and drag the purple ball to move it around. Release to watch it bounce with realistic physics!</p>
+            </div>
+            
+            <div class="canvas-container">
+                <canvas id="physics-canvas" width="800" height="500"></canvas>
+            </div>
         </section>
     </main>
 
@@ -41,5 +60,236 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Canvas setup
+            const canvas = document.getElementById('physics-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Resize canvas to be responsive
+            function resizeCanvas() {
+                const containerWidth = canvas.parentElement.clientWidth;
+                const newWidth = Math.min(800, containerWidth - 20); // Max width of 800px
+                const newHeight = (newWidth / 800) * 500; // Keep aspect ratio
+                
+                canvas.width = newWidth;
+                canvas.height = newHeight;
+                
+                // Update ball radius proportionally
+                ball.radius = (newWidth / 800) * 30;
+            }
+            
+            // Initial resize
+            resizeCanvas();
+            
+            // Resize canvas when window size changes
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Physics constants
+            const gravity = 0.4;
+            const friction = 0.99;
+            const bounce = 0.8;
+            
+            // Ball object
+            const ball = {
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                radius: 30,
+                color: '#8A2BE2', // Purple
+                velocityX: 0,
+                velocityY: 0,
+                mass: 10,
+                isGrabbed: false
+            };
+            
+            // Mouse position
+            const mouse = {
+                x: 0,
+                y: 0,
+                isDown: false
+            };
+            
+            // Check if mouse is over the ball
+            function isMouseOverBall(x, y) {
+                const distance = Math.sqrt(
+                    Math.pow(x - ball.x, 2) + Math.pow(y - ball.y, 2)
+                );
+                return distance < ball.radius;
+            }
+            
+            // Draw the ball
+            function drawBall() {
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                ctx.fillStyle = ball.color;
+                ctx.fill();
+                
+                // Add shading for 3D effect
+                const gradient = ctx.createRadialGradient(
+                    ball.x - ball.radius * 0.3, 
+                    ball.y - ball.radius * 0.3, 
+                    ball.radius * 0.1,
+                    ball.x, 
+                    ball.y, 
+                    ball.radius
+                );
+                gradient.addColorStop(0, '#B573FF');
+                gradient.addColorStop(1, '#6A0DAD');
+                
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                
+                // Add highlight
+                ctx.beginPath();
+                ctx.arc(
+                    ball.x - ball.radius * 0.3,
+                    ball.y - ball.radius * 0.3,
+                    ball.radius * 0.2,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.fill();
+            }
+            
+            // Update ball physics
+            function updateBall() {
+                if (!ball.isGrabbed) {
+                    // Apply gravity
+                    ball.velocityY += gravity;
+                    
+                    // Apply friction
+                    ball.velocityX *= friction;
+                    ball.velocityY *= friction;
+                    
+                    // Update position
+                    ball.x += ball.velocityX;
+                    ball.y += ball.velocityY;
+                    
+                    // Bounce off walls
+                    if (ball.x + ball.radius > canvas.width) {
+                        ball.x = canvas.width - ball.radius;
+                        ball.velocityX *= -bounce;
+                    } else if (ball.x - ball.radius < 0) {
+                        ball.x = ball.radius;
+                        ball.velocityX *= -bounce;
+                    }
+                    
+                    // Bounce off floor and ceiling
+                    if (ball.y + ball.radius > canvas.height) {
+                        ball.y = canvas.height - ball.radius;
+                        ball.velocityY *= -bounce;
+                        
+                        // Apply horizontal friction when on ground
+                        ball.velocityX *= 0.95;
+                    } else if (ball.y - ball.radius < 0) {
+                        ball.y = ball.radius;
+                        ball.velocityY *= -bounce;
+                    }
+                } else {
+                    // Ball is being dragged, follow mouse with some elasticity
+                    const targetX = mouse.x;
+                    const targetY = mouse.y;
+                    
+                    // Calculate direction to mouse
+                    const dx = targetX - ball.x;
+                    const dy = targetY - ball.y;
+                    
+                    // Update velocity based on mouse position
+                    ball.velocityX = dx * 0.2;
+                    ball.velocityY = dy * 0.2;
+                    
+                    // Update position with limits to prevent ball from leaving canvas
+                    ball.x += ball.velocityX;
+                    ball.y += ball.velocityY;
+                    
+                    // Keep ball within canvas bounds
+                    ball.x = Math.min(Math.max(ball.radius, ball.x), canvas.width - ball.radius);
+                    ball.y = Math.min(Math.max(ball.radius, ball.y), canvas.height - ball.radius);
+                }
+            }
+            
+            // Game loop
+            function animate() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Update and draw ball
+                updateBall();
+                drawBall();
+                
+                // Request next frame
+                requestAnimationFrame(animate);
+            }
+            
+            // Handle mouse events for grabbing the ball
+            canvas.addEventListener('mousedown', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+                
+                if (isMouseOverBall(mouse.x, mouse.y)) {
+                    ball.isGrabbed = true;
+                    mouse.isDown = true;
+                }
+            });
+            
+            canvas.addEventListener('mousemove', (e) => {
+                if (mouse.isDown) {
+                    const rect = canvas.getBoundingClientRect();
+                    mouse.x = e.clientX - rect.left;
+                    mouse.y = e.clientY - rect.top;
+                }
+            });
+            
+            canvas.addEventListener('mouseup', () => {
+                ball.isGrabbed = false;
+                mouse.isDown = false;
+            });
+            
+            canvas.addEventListener('mouseleave', () => {
+                ball.isGrabbed = false;
+                mouse.isDown = false;
+            });
+            
+            // Touch events for mobile devices
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                mouse.x = touch.clientX - rect.left;
+                mouse.y = touch.clientY - rect.top;
+                
+                if (isMouseOverBall(mouse.x, mouse.y)) {
+                    ball.isGrabbed = true;
+                    mouse.isDown = true;
+                }
+            });
+            
+            canvas.addEventListener('touchmove', (e) => {
+                if (mouse.isDown) {
+                    e.preventDefault();
+                    const rect = canvas.getBoundingClientRect();
+                    const touch = e.touches[0];
+                    mouse.x = touch.clientX - rect.left;
+                    mouse.y = touch.clientY - rect.top;
+                }
+            });
+            
+            canvas.addEventListener('touchend', () => {
+                ball.isGrabbed = false;
+                mouse.isDown = false;
+            });
+            
+            // Start animation
+            animate();
+            
+            // Add some initial velocity to make the ball move at start
+            ball.velocityX = 4;
+            ball.velocityY = -8;
+        });
+    </script>
 </body>
 </html> 
