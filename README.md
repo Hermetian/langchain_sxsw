@@ -7,7 +7,7 @@ This is a simple static website that is hosted using GitHub Pages. It demonstrat
 - Responsive design
 - Multiple pages (Home, About, Contact)
 - CSS animations
-- Functional contact form that sends emails to austen@gauntletai.com
+- Functional contact form that sends emails to cordwell@gmail.com and CCs austen@gauntletai.com
 - Prominent display of the website URL with copy-to-clipboard functionality
 - Animated elements for better user engagement
 
@@ -15,7 +15,7 @@ This is a simple static website that is hosted using GitHub Pages. It demonstrat
 
 - **Home**: The landing page with a welcome message and prominent URL display
 - **About**: Information about the website and technologies used
-- **Contact**: A functional contact form that sends messages to austen@gauntletai.com
+- **Contact**: A functional contact form that sends messages to cordwell@gmail.com and CCs austen@gauntletai.com
 
 ## Technologies Used
 
