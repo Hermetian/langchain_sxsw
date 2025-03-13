@@ -196,13 +196,13 @@
                 // Clear existing bumpers
                 bumpers.length = 0;
                 
-                // Add circular bumpers
+                // Add circular bumpers with larger size and better positioned
                 bumpers.push(
-                    { x: canvas.width * 0.3, y: canvas.height * 0.3, radius: 30, color: '#FF4500', points: 10 },
-                    { x: canvas.width * 0.5, y: canvas.height * 0.2, radius: 25, color: '#32CD32', points: 15 },
-                    { x: canvas.width * 0.7, y: canvas.height * 0.3, radius: 30, color: '#FFD700', points: 10 },
-                    { x: canvas.width * 0.2, y: canvas.height * 0.5, radius: 20, color: '#FF69B4', points: 20 },
-                    { x: canvas.width * 0.8, y: canvas.height * 0.5, radius: 20, color: '#00BFFF', points: 20 }
+                    { x: canvas.width * 0.25, y: canvas.height * 0.25, radius: 50, color: '#FF4500', points: 10 },
+                    { x: canvas.width * 0.5, y: canvas.height * 0.2, radius: 45, color: '#32CD32', points: 15 },
+                    { x: canvas.width * 0.75, y: canvas.height * 0.25, radius: 50, color: '#FFD700', points: 10 },
+                    { x: canvas.width * 0.35, y: canvas.height * 0.45, radius: 40, color: '#FF69B4', points: 20 },
+                    { x: canvas.width * 0.65, y: canvas.height * 0.45, radius: 40, color: '#00BFFF', points: 20 }
                 );
             }
             
@@ -501,8 +501,8 @@
                     // Calculate new velocity with increased bounce
                     const impactSpeed = ball.velocityX * nx + ball.velocityY * ny;
                     
-                    // Apply bounce effect with energy boost
-                    const bounceFactor = 1.5;
+                    // Apply bounce effect with significantly stronger energy boost
+                    const bounceFactor = 2.5;
                     ball.velocityX -= (impactSpeed * nx * 2) * bounceFactor;
                     ball.velocityY -= (impactSpeed * ny * 2) * bounceFactor;
                     
