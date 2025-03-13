@@ -7,13 +7,15 @@ This is a simple static website that is hosted using GitHub Pages. It demonstrat
 - Responsive design
 - Multiple pages (Home, About, Contact)
 - CSS animations
-- Form handling (demo only)
+- Functional contact form that sends emails to austen@gauntletai.com
+- Prominent display of the website URL with copy-to-clipboard functionality
+- Animated elements for better user engagement
 
 ## Pages
 
-- **Home**: The landing page with a welcome message
+- **Home**: The landing page with a welcome message and prominent URL display
 - **About**: Information about the website and technologies used
-- **Contact**: A demo contact form (doesn't actually send messages)
+- **Contact**: A functional contact form that sends messages to austen@gauntletai.com
 
 ## Technologies Used
 
@@ -21,10 +23,11 @@ This is a simple static website that is hosted using GitHub Pages. It demonstrat
 - CSS3
 - Vanilla JavaScript
 - GitHub Pages for hosting
+- Formspree for form processing
 
 ## Viewing the Website
 
-This website is hosted on GitHub Pages and can be accessed at the URL: `https://[your-username].github.io/[repository-name]`.
+This website is hosted on GitHub Pages and can be accessed at: https://hermetian.github.io/langchain_sxsw/
 
 ## Setup Instructions
 
@@ -32,7 +35,7 @@ To set up this project locally:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/[your-username]/[repository-name].git
+   git clone https://github.com/Hermetian/langchain_sxsw.git
    ```
 
 2. Open the project in your favorite code editor
@@ -43,13 +46,13 @@ To set up this project locally:
 
 To deploy this website to GitHub Pages:
 
-1. Push your code to the `main` branch of your GitHub repository
+1. Push your code to the `master` branch of your GitHub repository
 
 2. Go to the repository settings on GitHub
 
 3. Scroll down to the "GitHub Pages" section
 
-4. Select the `main` branch as the source 
+4. Select the `master` branch as the source 
 
 5. Click "Save" and your website will be published
 

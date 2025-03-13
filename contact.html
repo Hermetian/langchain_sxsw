@@ -23,7 +23,7 @@
             <h2>Get in Touch</h2>
             <p>Feel free to reach out to us with any questions or feedback about this website.</p>
             
-            <form id="contact-form">
+            <form id="contact-form" action="https://formspree.io/f/austen@gauntletai.com" method="POST">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required>
@@ -42,7 +42,7 @@
                 <button type="submit">Send Message</button>
             </form>
             
-            <p class="note">Note: This is a demonstration form and doesn't actually send messages.</p>
+            <p class="note">Your message will be sent directly to <strong>austen@gauntletai.com</strong></p>
         </section>
     </main>
 
@@ -51,13 +51,5 @@
     </footer>
 
     <script src="js/script.js"></script>
-    <script>
-        // Form handling script
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Thank you for your message! This is a demo website, so no message was actually sent.');
-            this.reset();
-        });
-    </script>
 </body>
 </html> 

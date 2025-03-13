@@ -107,4 +107,67 @@ button:hover {
     margin-top: 20px;
     font-style: italic;
     color: #666;
+}
+
+/* URL Display Styles */
+.url-display {
+    background-color: #0077cc;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.url-display h2 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.large-url {
+    font-size: 2em;
+    font-weight: bold;
+    word-wrap: break-word;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    margin: 0 auto;
+    max-width: 800px;
+    border: 2px solid white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.large-url:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .large-url {
+        font-size: 1.4em;
+        padding: 15px;
+    }
+}
+
+/* Pulse Animation for URL */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+    70% {
+        transform: scale(1.03);
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+.large-url.pulse {
+    animation: pulse 2s infinite;
 } 
