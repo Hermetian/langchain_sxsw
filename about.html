@@ -36,7 +36,7 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="about.html">Physics Demo</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -66,6 +66,23 @@
             const canvas = document.getElementById('physics-canvas');
             const ctx = canvas.getContext('2d');
             
+            // Physics constants
+            const gravity = 0.4;
+            const friction = 0.99;
+            const bounce = 0.8;
+            
+            // Ball object - defined BEFORE it's used in resizeCanvas
+            const ball = {
+                x: 0,
+                y: 0,
+                radius: 30,
+                color: '#8A2BE2', // Purple
+                velocityX: 0,
+                velocityY: 0,
+                mass: 10,
+                isGrabbed: false
+            };
+            
             // Resize canvas to be responsive
             function resizeCanvas() {
                 const containerWidth = canvas.parentElement.clientWidth;
@@ -77,6 +94,10 @@
                 
                 // Update ball radius proportionally
                 ball.radius = (newWidth / 800) * 30;
+                
+                // Center the ball when canvas is resized
+                ball.x = canvas.width / 2;
+                ball.y = canvas.height / 2;
             }
             
             // Initial resize
@@ -84,23 +105,6 @@
             
             // Resize canvas when window size changes
             window.addEventListener('resize', resizeCanvas);
-            
-            // Physics constants
-            const gravity = 0.4;
-            const friction = 0.99;
-            const bounce = 0.8;
-            
-            // Ball object
-            const ball = {
-                x: canvas.width / 2,
-                y: canvas.height / 2,
-                radius: 30,
-                color: '#8A2BE2', // Purple
-                velocityX: 0,
-                velocityY: 0,
-                mass: 10,
-                isGrabbed: false
-            };
             
             // Mouse position
             const mouse = {
