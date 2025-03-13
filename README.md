@@ -8,7 +8,7 @@ This is a simple static website that is hosted using GitHub Pages. It demonstrat
 - Multiple pages (Home, Physics Demo, Contact)
 - Interactive physics simulation with a draggable bouncing ball
 - CSS animations and canvas graphics
-- Functional contact form that sends emails to cordwell@gmail.com and CCs austen@gauntletai.com
+- Functional contact form using Formspree
 - Prominent display of the website URL with copy-to-clipboard functionality
 - Animated elements for better user engagement
 
@@ -16,7 +16,7 @@ This is a simple static website that is hosted using GitHub Pages. It demonstrat
 
 - **Home**: The landing page with a welcome message and prominent URL display
 - **Physics Demo**: An interactive canvas-based physics simulation with a draggable purple ball
-- **Contact**: A functional contact form that sends messages to cordwell@gmail.com and CCs austen@gauntletai.com
+- **Contact**: A functional contact form using Formspree to handle submissions
 
 ## Technologies Used
 
@@ -43,6 +43,12 @@ To set up this project locally:
 2. Open the project in your favorite code editor
 
 3. Open `index.html` in your browser to view the website locally
+
+4. For the contact form to work, you need to:
+   - Sign up at https://formspree.io/register
+   - Create a new form in the dashboard
+   - Update the form action URL in `contact.html` with your form ID
+   - Configure your form to send emails to your preferred address
 
 ## Deploying to GitHub Pages
 
